@@ -9,7 +9,9 @@ int main(void)
 {
 	char *str;
 
-tr = “A clown on a throne istill a clown — C. JoyBell C";
+	str = "A clown on a throne is still a clown -  JoyBell C";
+
 	print_rev(str);
+
 	return (0);
 }
