@@ -5,7 +5,7 @@
  *
  * Return: 0
  */
-int prompt(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
         if (ac == 1)
         {
