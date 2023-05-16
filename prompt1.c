@@ -11,7 +11,7 @@
  *
  */
 
-void get_prompt(char **av, char **env)
+void _prompt(char **av, char **env)
 {
 	char *str = NULL;
 	size_t n = 0;
