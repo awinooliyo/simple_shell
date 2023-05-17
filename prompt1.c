@@ -51,7 +51,7 @@ void _prompt(char **av, char **env)
 			}
 			if (pid == 0)
 			{
-				execute_command(av, env, path_command, argv);/*added path_command*/
+				execute_command(av, env, path_command, argv);
 				printf("%s: No such file or directory\n", av[0]);
 				exit(EXIT_FAILURE);
 			}
@@ -102,11 +102,9 @@ void tokenize_input(char *str, char **argv)
 
 void execute_command(char **av, char **env, char *path_command, char **argv)
 {
-	printf("Executing command:%s\n", path_command);
-
 	if (execve(path_command, argv, env) == -1)
 	{
-		printf("%s: No such file or directory\n", av[0]);
+		perror(av[0]);
 		exit(EXIT_FAILURE);
 	}
 }

@@ -28,11 +28,13 @@ int find_command(char *command, char **env, char *path_command)
 		return (-1);
 	}
 
-	d = strtok(path, ":");
+	strcpy(copy_path, path);
+
+	d = strtok(copy_path, ":");
 
 	while (d != NULL)
 	{
-		snprintf(path_command, PATH_MAX, "%s%s", d, command);
+		snprintf(path_command, PATH_MAX, "%s/%s", d, command);
 		if (access(path_command, X_OK) == 0)
 		{
 			free(copy_path);
