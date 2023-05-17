@@ -17,8 +17,6 @@ void _prompt(char **av, char **env)
 	size_t n = 0;
 	ssize_t read;
 	char *argv[MAX_ARG];
-	pid_t pid;
-	int status;
 	char path_command[PATH_MAX];
 
 	while (1)
@@ -41,28 +39,15 @@ void _prompt(char **av, char **env)
 
 		tokenize_input(str, argv);
 
-		if(find_command(argv[0], env, path_command) == 0)
+		if (find_command(argv[0], env, path_command) == 0)
 		{
-			pid = fork();
-			if (pid == -1)
-			{
-				free(str);
-				exit(EXIT_FAILURE);
-			}
-			if (pid == 0)
 			{
 				execute_command(av, env, path_command, argv);
-				printf("%s: No such file or directory\n", av[0]);
-				exit(EXIT_FAILURE);
-			}
-			else
-			{
-				wait(&status);
 			}
 		}
 		else
 		{
-			printf("%s: Command not Found\n", argv[0]);
+			 printf("%s: Command not Found\n", argv[0]);
 		}
 	}
 }
@@ -88,6 +73,11 @@ void tokenize_input(char *str, char **argv)
 		tok = strtok(NULL, " ");
 	}
 	argv[a] = NULL;
+
+	if (strcmp(argv[0], "exit") == 0)
+	{
+		exit(EXIT_SUCCESS);
+	}
 }
 
 /**
@@ -102,9 +92,25 @@ void tokenize_input(char *str, char **argv)
 
 void execute_command(char **av, char **env, char *path_command, char **argv)
 {
-	if (execve(path_command, argv, env) == -1)
+	pid_t pid;
+	int status;
+
+	pid = fork();
+
+	if (pid == -1)
 	{
-		perror(av[0]);
 		exit(EXIT_FAILURE);
+	}
+	if (pid == 0)
+	{
+		if (execve(path_command, argv, env) == -1)
+		{
+			perror(av[0]);
+			exit(EXIT_FAILURE);
+		}
+	}
+	else
+	{
+		wait(&status);
 	}
 }

@@ -16,7 +16,6 @@ int find_command(char *command, char **env, char *path_command)
 	char *d;
 
 	path = get_env("PATH", env);
-	
 	if (path == NULL)
 		return (-1);
 
@@ -40,7 +39,7 @@ int find_command(char *command, char **env, char *path_command)
 			free(copy_path);
 			return (0);
 		}
-		d =strtok(NULL, ":");
+		d = strtok(NULL, ":");
 	}
 
 
