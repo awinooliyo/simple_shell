@@ -4,7 +4,7 @@
 #define MAX_ARG 20
 
 /**
- * get_prompt - A function that displays a prompt
+ * _prompt - A function that displays a prompt
  *
  * @av: argument vector
  * @env: variable environment
@@ -19,11 +19,15 @@ void _prompt(char **av, char **env)
 	char *argv[MAX_ARG];
 	pid_t pid;
 	int status;
+	char path_command[PATH_MAX];
 
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
+		{
 			printf("EWShell$ ");
+			fflush(stdout);
+		}
 
 		read = getline(&str, &n, stdin);
 
@@ -37,23 +41,29 @@ void _prompt(char **av, char **env)
 
 		tokenize_input(str, argv);
 
-		pid = fork();
-		if (pid == -1)
+		if(find_command(argv[0], env, path_command) == 0)
 		{
-			free(str);
-			exit(EXIT_FAILURE);
-		}
-		if (pid == 0)
-		{
-			execute_command(av, env, argv);
-			printf("%s: No such file or directory\n", av[0]);
-			exit(EXIT_FAILURE);
+			pid = fork();
+			if (pid == -1)
+			{
+				free(str);
+				exit(EXIT_FAILURE);
+			}
+			if (pid == 0)
+			{
+				execute_command(av, env, path_command, argv);/*added path_command*/
+				printf("%s: No such file or directory\n", av[0]);
+				exit(EXIT_FAILURE);
+			}
+			else
+			{
+				wait(&status);
+			}
 		}
 		else
 		{
-			wait(&status);
+			printf("%s: Command not Found\n", argv[0]);
 		}
-
 	}
 }
 
@@ -86,12 +96,15 @@ void tokenize_input(char *str, char **argv)
  * @av: argument vector
  * @env: variable environment
  * @argv: array of arguments
+ * @path_command: path to command
  *
  */
 
-void execute_command(char **av, char **env, char **argv)
+void execute_command(char **av, char **env, char *path_command, char **argv)
 {
-	if (execve(argv[0], argv, env) == -1)
+	printf("Executing command:%s\n", path_command);
+
+	if (execve(path_command, argv, env) == -1)
 	{
 		printf("%s: No such file or directory\n", av[0]);
 		exit(EXIT_FAILURE);

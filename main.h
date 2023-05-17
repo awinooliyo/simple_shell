@@ -7,12 +7,20 @@
 #include <string.h>
 #include <stdlib.h>
 #include <sys/wait.h>
+#include <sys/types.h>
+#include <limits.h>
 
 /**  FUNCTIONS PROTOTYPES */
+
 void print_rev(char *s);
 void get_prompt(char **av, char **env);
 void tokenize_input(char *str, char **argv);
-void execute_command(char **av, char **env, char **argv);
 void _prompt(char **av, char **env);
+
+/* FUNCTION TO HANDLE PATH */
+
+char *get_env(char *name, char **env);
+int find_command(char *command, char **env, char *path_command);
+void execute_command(char **av, char **env, char *path_command, char **argv);
 
 #endif

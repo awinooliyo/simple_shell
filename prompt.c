@@ -13,7 +13,7 @@ int main(int ac, char **av, char **env)
 {
 	if (ac == 1)
 	{
-		get_prompt(av, env);
+	_prompt(av, env);
 	}
 	return (0);
 }
