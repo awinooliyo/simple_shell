@@ -14,8 +14,11 @@
 
 void print_rev(char *s);
 void get_prompt(char **av, char **env);
-void tokenize_input(char *str, char **argv);
+void tokenize_input(char *str, char **argv, int max_args);
 void _prompt(char **av, char **env);
+void free_argv(char **argv);
+void execute_commands(char **env, char *path_command, char **argv);
+
 
 /* FUNCTION TO HANDLE PATH */
 

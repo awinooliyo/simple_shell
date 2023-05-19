@@ -1,8 +1,7 @@
 #include "main.h"
 
 #define BUFFER_SIZE 1024
-#define MAX_ARG 20
-
+#define MAX_ARG 40
 /**
  * _prompt - A function that displays a prompt
  *
@@ -37,19 +36,24 @@ void _prompt(char **av, char **env)
 
 		str[strcspn(str, "\n")] = '\0';
 
-		tokenize_input(str, argv);
+		tokenize_input(str, argv, MAX_ARG);
+
+		if (argv[0] == NULL)
+		{
+			free_argv(argv);
+			continue;
+		}
 
 		if (find_command(argv[0], env, path_command) == 0)
 		{
-			{
-				execute_command(av, env, path_command, argv);
-			}
+			execute_command(av, env, path_command, argv);
 		}
 		else
 		{
-			 printf("%s: Command not Found\n", argv[0]);
+			printf("%s: Command not Found\n", argv[0]);
 		}
 	}
+	free(str);
 }
 
 /**
@@ -60,13 +64,19 @@ void _prompt(char **av, char **env)
  *
  */
 
-void tokenize_input(char *str, char **argv)
+void tokenize_input(char *str, char **argv, int max_args)
 {
 	int a = 0;
 	char *tok;
 
+	for (a = 0; a < max_args; a++)
+	{
+		argv[a] = NULL;
+	}
 	tok = strtok(str, " ");
-	while (tok && a < MAX_ARG - 1)
+
+	a = 0;
+	while (tok && a < max_args - 1)
 	{
 		argv[a] = tok;
 		a++;
@@ -74,7 +84,7 @@ void tokenize_input(char *str, char **argv)
 	}
 	argv[a] = NULL;
 
-	if (strcmp(argv[0], "exit") == 0)
+	if (argv[0] != NULL && strcmp(argv[0], "exit") == 0)
 	{
 		exit(EXIT_SUCCESS);
 	}
@@ -99,18 +109,23 @@ void execute_command(char **av, char **env, char *path_command, char **argv)
 
 	if (pid == -1)
 	{
+		perror("Error:Failed to fork");
+		free_argv(argv);
 		exit(EXIT_FAILURE);
 	}
-	if (pid == 0)
+	else if (pid == 0)
 	{
 		if (execve(path_command, argv, env) == -1)
 		{
 			perror(av[0]);
+			free_argv(argv);
 			exit(EXIT_FAILURE);
 		}
 	}
 	else
 	{
-		wait(&status);
+		waitpid(pid, &status, 0);
+		free_argv(argv);
 	}
+
 }
