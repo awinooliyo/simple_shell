@@ -19,6 +19,22 @@ void _prompt(char **av, char **env);
 void free_argv(char **argv);
 void execute_commands(char **env, char *path_command, char **argv);
 
+/** Printing Strings **/
+void _puts(char **strg);
+
+/** Built in Functions **/
+typedef int (builtin_funct)(char **);
+
+typedef struct builtin_cmd {
+        const char *name;
+        builtin_funct funct;
+} builtin_cmd;
+
+int we_cd (char **args);
+int we_env (char **args);
+int we_help (char **args);
+int we_echo (char **args);
+int we_exit (char **args);
 
 /* FUNCTION TO HANDLE PATH */
 
