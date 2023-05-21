@@ -23,9 +23,9 @@ void execute_commands(char **env, char *path_command, char **argv);
 void _puts(char **strg);
 
 /** Built in Functions **/
-typedef int (builtin_funct)(char **);
-
-typedef struct builtin_cmd {
+typedef int (*builtin_funct)(char **);
+extern char **environ;
+typedef struct {
         const char *name;
         builtin_funct funct;
 } builtin_cmd;
