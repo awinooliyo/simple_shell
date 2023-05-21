@@ -32,16 +32,18 @@ int we_cd(char **args)
 
 int we_env(char **args)
 {
+	int i = 0;
+	char **env;
+
 	if (args != NULL)
 	{
-		int i = 0;
 		while (args[i] != NULL)
 		{
 			printf("Argument %d: %s\n", i, args[i]);
 			i++;
 		}
 	}
-	char **env;
+
 	env = environ;
 	while (*env)
 	{
@@ -58,16 +60,17 @@ int we_env(char **args)
 
 int we_help(char **args)
 {
+	size_t i;
+	int a;
+
 	if (args != NULL)
 	{
-		int i;
-		for (i = 0; args[i] != NULL; i++)
+		for (a = 0; args[a] != NULL; a++)
 		{
-			printf("Argument %d: %s\n", i, args[i]);
+			printf("Argument %d: %s\n", a, args[a]);
 		}
 	}
 
-	size_t i;
 	printf("WE Simple Shell\n");
 	printf("Supported builtin commands:\n");
 	for (i = 0; i < sizeof(builtin_funct) / sizeof(builtin_cmd); i++)
@@ -84,6 +87,7 @@ int we_help(char **args)
 int we_echo(char **args)
 {
 	int i;
+
 	for (i = 1; args[i] != NULL; i++)
 	{
 		printf("%s ", args[i]);
