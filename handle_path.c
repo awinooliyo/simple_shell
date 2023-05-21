@@ -41,9 +41,13 @@ int find_command(char *command, char **env, char *path_command)
 		}
 		d = strtok(NULL, ":");
 	}
+	if (access(command, X_OK) == 0)
+	{
+		strcpy(path_command, command);
+		free(copy_path);
+		return (0);
+	}
 
-
-	free(copy_path);
 	return (-1);
 
 }

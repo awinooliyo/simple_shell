@@ -73,7 +73,7 @@ int we_help(char **args)
 
 	printf("WE Simple Shell\n");
 	printf("Supported builtin commands:\n");
-	for (i = 0; i < sizeof(builtin_funct) / sizeof(builtin_cmd); i++)
+	for (i = 0; i <= sizeof(builtin_funct) / sizeof(builtin_cmd); i++)
 	{
 		printf(" %s\n", builtins[i].name);
 	}
