@@ -1,14 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+#include "main.h"
 
 builtin_cmd builtins[] = {
 	{"cd", we_cd},
 	{"env", we_env},
 	{"help", we_help},
 	{"echo", we_echo},
-	{"exit" we_exit}
+	{"exit", we_exit}
 };
 
 /**
@@ -19,7 +16,7 @@ builtin_cmd builtins[] = {
 int we_cd(char **args)
 {
 	if (args[1] == NULL)
-		printf(stderr, "cd: missing argument\n");
+		fprintf(stderr, "cd: missing argument\n");
 	else
 	{
 		if (chdir(args[1]) != 0)
@@ -35,7 +32,17 @@ int we_cd(char **args)
 
 int we_env(char **args)
 {
-	char **env = environ;
+	if (args != NULL)
+	{
+		int i = 0;
+		while (args[i] != NULL)
+		{
+			printf("Argument %d: %s\n", i, args[i]);
+			i++;
+		}
+	}
+	char **env;
+	env = environ;
 	while (*env)
 	{
 		printf("%s\n", *env);
@@ -51,6 +58,15 @@ int we_env(char **args)
 
 int we_help(char **args)
 {
+	if (args != NULL)
+	{
+		int i;
+		for (i = 0; args[i] != NULL; i++)
+		{
+			printf("Argument %d: %s\n", i, args[i]);
+		}
+	}
+
 	size_t i;
 	printf("WE Simple Shell\n");
 	printf("Supported builtin commands:\n");
@@ -58,7 +74,7 @@ int we_help(char **args)
 	{
 		printf(" %s\n", builtins[i].name);
 	}
-	_puts("Use the 'help' command to display the information herein.\n");
+	printf("Use the 'help' command to display the information herein.\n");
 	return (0);
 }
 
@@ -74,4 +90,20 @@ int we_echo(char **args)
 	}
 	printf("\n");
 	return (0);
+}
+
+/**
+* we_exit - builtin function for exit command
+* exits the shell program.
+*/
+
+int we_exit(char **args)
+{
+	if (args[1] != NULL)
+	{
+		int exit_code = atoi(args[1]);
+		exit(exit_code);
+	}
+
+	exit(0);
 }
