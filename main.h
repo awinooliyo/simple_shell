@@ -33,12 +33,33 @@ typedef struct {
         builtin_funct funct;
 } builtin_cmd;
 
-int we_cd (char **args);
-int we_env (char **args);
-int we_help (char **args);
-int we_echo (char **args);
-int we_exit (char **args);
+builtin_cmd builtins[] = {
+	{"cd", we_cd},
+	{"env", we_env},
+	{"help", we_help},
+	{"echo", we_echo},
+	{"exit", we_exit},
+	{"alias", we_alias},
+	{"unalias", we_unalias}
+};
+typedef struct alias {
+	char *name;
+	char *command;
+	struct alias *next;
+} alias;
 
+alias *aliases = NULL;
+
+int we_cd(char **args);
+int we_env(char **args);
+int we_help(char **args);
+int we_echo(char **args);
+int we_exit(char **args);
+int we_alias(char **args);
+void add_alias(const char *name, const char *command);
+void display_aliases(void);
+void remove_alias(const char *name);
+int  we_unalias(char **args);
 /* FUNCTION TO HANDLE PATH */
 
 char *get_env(char *name, char **env);
