@@ -5,7 +5,9 @@ builtin_cmd builtins[] = {
 	{"env", we_env},
 	{"help", we_help},
 	{"echo", we_echo},
-	{"exit", we_exit}
+	{"exit", we_exit},
+	{"alias", we_alias},
+	{"unalias", we_unalias}
 };
 
 /**

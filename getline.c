@@ -9,11 +9,11 @@
  * Return: no of characters read (excluding newline), or -1 on failure
  */
 
-ssize_t _getline(char **str,ize_t *n)
+ssize_t _getline(char **str, size_t *n)
 {
-tatic char buf[BUFFER_SIZE];
-taticize_t p = 0;
-taticsize_tize = 0;
+static char buf[BUFFER_SIZE];
+staticize_t p = 0;
+staticsize_tize = 0;
 size_t a;
 	char *temp;
 size_t bytesRead;
@@ -28,12 +28,12 @@ size_t bytesRead;
 			return (0);
         	p = 0;
 
-ize = bytesRead;
+size = bytesRead;
 	}
 
 	a = p;
 
-	while (a <ize && buf[a] != '\n')
+	while (a <size && buf[a] != '\n')
 		a++;
 
 	if (a - p > *n)
@@ -62,7 +62,7 @@ ize = bytesRead;
 int m_getline(void)
 {
 	char *line = NULL;
-ize_t len = 0;
+size_t len = 0;
 size_t nread;
 
 	while ((nread = _getline(&line, &len)) != -1)

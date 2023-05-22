@@ -34,7 +34,7 @@ int we_unalias(char **args)
 	}
 	else
 	{
-		remove_alias(alias[1]);
+		remove_alias(args[1]);
 	}
 	return (0);
 }
@@ -115,7 +115,7 @@ void display_aliases(void)
 
 	while (temp != NULL)
 	{
-		printf(%s = %s\n", temp->name, temp->command);
+		printf("%s = %s\n", temp->name, temp->command);
 		temp = temp->next;
 	}
 }
