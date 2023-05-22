@@ -51,7 +51,6 @@ void _prompt(char **av, char **env)
 			free_argv(argv);
 			continue;
 		}
-
 		if (find_command(argv[0], env, path_command) == 0)
 		{
 			execute_command(av, env, path_command, argv);

@@ -28,7 +28,7 @@ list_t *add_node(list_t **head, const char *str, int change_env)
 		return (NULL);
 	}
 
-	new_node->change_env = change_env;
+	new_node->data = change_env;
 	new_node->next = NULL;
 
 	if (*head == NULL)
@@ -40,7 +40,7 @@ list_t *add_node(list_t **head, const char *str, int change_env)
 		last = *head;
 		while (last->next != NULL)
 		{
-			last = last->next;
+			last = (list_t *)last->next;
 		}
 		last->next = new_node;
 	}
@@ -57,14 +57,11 @@ list_t *add_node(list_t **head, const char *str, int change_env)
  * Return: 1 if successful, else 0 if out of range
  */
 
-int dlt_node_at_index(list_t **head, size_t ind)
+int dlt_node_at_ind(list_t **head, size_t ind)
 {
-	size_t a;
-	list_t *pre;
-	list_t *curr;
-
-	pre = NULL;
-	curr = *head;
+	size_t a = 0;
+	struct list_t *pre = NULL;
+	struct list_t *curr = *head;
 
 	while (curr && a < ind)
 	{
@@ -78,10 +75,10 @@ int dlt_node_at_index(list_t **head, size_t ind)
 
 	if (pre != NULL)
 	{
-		prre->next = curr->next;
+		pre->next = curr->next;
 	}
 	else
-		*head = curr->next;
+		*head = (list_t *)curr->next;
 
 	free(curr->str);
 	free(curr);
@@ -111,7 +108,7 @@ char *starts(const char *str, const char *prefix)
 	}
 	if (strncmp(str, prefix, prefix_len) == 0)
 	{
-		return (*str);
+		return ((char *)str);
 	}
 	else
 		return (NULL);
@@ -121,13 +118,13 @@ char *starts(const char *str, const char *prefix)
 /* STRLEN */
 
 /**
- * i_strlen - calculates string length
+ * _strlen - calculates string length
  *
  * @str: input strin
  *
  * Return: length of string
  */
-size_t i_strlen(const char *str)
+size_t _strlen(const char *str)
 {
 	size_t len = 0;
 
@@ -139,7 +136,7 @@ size_t i_strlen(const char *str)
 }
 
 /**
- * i_strcpy - copies string
+ * _strcpy - copies string
  *
  * @src: source string
  * @dest: destination of buffer
@@ -147,7 +144,7 @@ size_t i_strlen(const char *str)
  * Return: pointer to destination
  */
 
-char *i_strcpy(char *dest, const char *src)
+char *_strcpy(char *dest, const char *src)
 {
 	size_t a;
 
@@ -159,29 +156,5 @@ char *i_strcpy(char *dest, const char *src)
 		a++;
 	}
 	dest[a] = '\0';
-	return (dest);
-}
-
-/**
- * i_strcat - cancatenates 2 strings
- *
- * @src: source string
- * @dest: destination buffer
- *
- * Return: pointer to destination
- */
-
-char *i_strcat(char *dest, const char *src)
-{
-	size_t dest_len = strlen(dest);
-	size_t a;
-
-	a = 0;
-	while (src[a] != '\0')
-	{
-		dest[dest_len + a] = src[a];
-		a++;
-	}
-	dest[dest_len + i] = '\0';
 	return (dest);
 }

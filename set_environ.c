@@ -20,15 +20,15 @@ int _setenv(environ_t *envs, char *var, char *val)
 		return (0);
 	}
 
-	buff = malloc(i_strlen(var) + i_strlen(val) + 2);
+	buff = malloc(_strlen(var) + _strlen(val) + 2);
 
 	if (!buff)
 	{
 		return (1);
 	}
-	i_strcpy(buff, var);
-	i_strcat(buff, "=");
-	i_strcat(buff, val);
+	_strcpy(buff, var);
+	_strcat(buff, "=");
+	_strcat(buff, val);
 	node = envs->env;
 
 	while (node)
@@ -41,10 +41,10 @@ int _setenv(environ_t *envs, char *var, char *val)
 			envs->change_env = 1;
 			return (0);
 		}
-		node = node->next;
+		node = (list_t *)node->next;
 	}
 
-	add_node(&(envs->env), buff, 0);
+	add_node((list_t **)&(envs->env), buff, 0);
 	free(buff);
 	envs->change_env = 1;
 
@@ -67,7 +67,7 @@ int _unsetenv(environ_t *envs, char *var)
 	char *b = NULL;
 	list_t *node = NULL;
 
-	node = envs->env;
+	node = (list_t *) envs->env;
 
 	if (!node || !var)
 	{
@@ -80,14 +80,39 @@ int _unsetenv(environ_t *envs, char *var)
 
 		if (b && *b == '=')
 		{
-			envs->change_env = dlt_node_at_ind(&(envs->env), a);
+			envs->change_env = dlt_node_at_ind((list_t **) &(envs->env), a);
 
 			a = 0;
 			node = envs->env;
 			continue;
 		}
-		node = node->next;
+		node = (list_t *) node->next;
 		a++;
 	}
+
 	return (envs->change_env);
+}
+
+/**
+ * _strcat - cancatenates 2 strings
+ *
+ * @src: source string
+ * @dest: destination buffer
+ *
+ * Return: pointer to destination
+ */
+
+char *_strcat(char *dest, const char *src)
+{
+	size_t dest_len = strlen(dest);
+	size_t a;
+
+	a = 0;
+	while (src[a] != '\0')
+	{
+		dest[dest_len + a] = src[a];
+		a++;
+	}
+	dest[dest_len + a] = '\0';
+	return (dest);
 }

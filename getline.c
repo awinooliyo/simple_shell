@@ -9,17 +9,14 @@
  * Return: no of characters read (excluding newline), or -1 on failure
  */
 
-ssize_t _getline(char **str,ize_t *n)
+ssize_t _getline(char **str, size_t *n)
 {
 	static char buf[BUFFER_SIZE];
 	static size_t p;
 	static ssize_t size;
 	ssize_t a;
-	staticize_t p = 0;
-	staticsize_tize = 0;
-	size_t a;
 	char *temp;
-	size_t bytesRead;
+	ssize_t bytesRead;
 
 	if (p >= (size_t)size)
 	{
@@ -32,12 +29,12 @@ ssize_t _getline(char **str,ize_t *n)
 
 		p = 0;
 
-	size = bytesRead;
+		size = bytesRead;
 	}
 
 	a = p;
 
-	while (a <size && buf[a] != '\n')
+	while (a < size && buf[a] != '\n')
 		a++;
 
 	if (a - p > *n)
@@ -52,21 +49,20 @@ ssize_t _getline(char **str,ize_t *n)
 	}
 
 	memcpy(*str, buf + p, a - p);
-	(*str)[a - p] = '\0';
+	((*str)[a - p] = '\0');
 	p = (a + 1);
-	
 	return (a - p - 1);
 }
 
 /**
- * main - entry
+ * m_getline - entry
  */
 
 int m_getline(void)
 {
 	char *line = NULL;
-size_t len = 0;
-size_t nread;
+	size_t len = 0;
+	ssize_t nread;
 
 	while ((nread = _getline(&line, &len)) != -1)
 	{
