@@ -45,4 +45,16 @@ char *get_env(char *name, char **env);
 int find_command(char *command, char **env, char *path_command);
 void execute_command(char **av, char **env, char *path_command, char **argv);
 
+/* SET AND UNSET ENV */
+typedef
+int _unsetenv(environ_t *envs, char *var);
+int _setenv(environ_t *envs, char *var, char *val);
+list_t *add_node(list_t **head, const char *str, int change_env);
+int dlt_node_at_index(list_t **head, size_t ind);
+char *starts(const char *str, const char *prefix);
+size_t i_strlen(const char *str);
+char *i_strcpy(char *dest, const char *src);
+char *i_strcat(char *dest, const char *src);
+
+
 #endif

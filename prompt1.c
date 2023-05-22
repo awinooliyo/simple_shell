@@ -12,11 +12,20 @@
 
 void _prompt(char **av, char **env)
 {
-	char *str = NULL;
-	size_t n = 0;
+	char *str;
+	size_t n;
 	ssize_t read;
 	char *argv[MAX_ARG];
 	char path_command[PATH_MAX];
+
+	str = malloc(sizeof(char) * BUFFER_SIZE);
+	n = BUFFER_SIZE;
+
+	if (str == NULL)
+	{
+		perror("Error: Failed to allocate memory");
+		exit(EXIT_FAILURE);
+	}
 
 	while (1)
 	{
@@ -30,8 +39,7 @@ void _prompt(char **av, char **env)
 
 		if (read == -1)
 		{
-			free(str);
-			exit(EXIT_FAILURE);
+			break;
 		}
 
 		str[strcspn(str, "\n")] = '\0';

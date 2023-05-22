@@ -12,8 +12,8 @@
 ssize_t _getline(char **str, size_t *n)
 {
 	static char buf[BUFFER_SIZE];
-	static size_t p = 0;
-	static ssize_t size = 0;
+	static size_t p;
+	static ssize_t size;
 	ssize_t a;
 	char *temp;
 	ssize_t bytesRead;
@@ -26,7 +26,8 @@ ssize_t _getline(char **str, size_t *n)
 			return (-1);
 		if (bytesRead == 0)
 			return (0);
-        	p = 0;
+
+		p = 0;
 
 		size = bytesRead;
 	}
@@ -39,9 +40,9 @@ ssize_t _getline(char **str, size_t *n)
 	if (a - p > *n)
 	{
 		*n = a - p + 1;
-		
+
 		temp = realloc(*str, *n);
-		
+
 		if (!temp)
 			return (-1);
 		*str = temp;
@@ -49,9 +50,8 @@ ssize_t _getline(char **str, size_t *n)
 
 	memcpy(*str, buf + p, a - p);
 	(*str)[a - p] = '\0';
-
-	p = a + 1;
-
+	p = (a + 1);
+	
 	return (a - p - 1);
 }
 
