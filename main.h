@@ -33,6 +33,15 @@ typedef struct {
         builtin_funct funct;
 } builtin_cmd;
 
+builtin_cmd builtins[] = {
+	{"cd", we_cd},
+	{"env", we_env},
+	{"help", we_help},
+	{"echo", we_echo},
+	{"exit", we_exit},
+	{"alias", we_alias},
+	{"unalias", we_unalias}
+};
 typedef struct alias {
 	char *name;
 	char *command;

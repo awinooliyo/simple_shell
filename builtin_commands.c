@@ -1,18 +1,9 @@
 #include "main.h"
 
-builtin_cmd builtins[] = {
-	{"cd", we_cd},
-	{"env", we_env},
-	{"help", we_help},
-	{"echo", we_echo},
-	{"exit", we_exit},
-	{"alias", we_alias},
-	{"unalias", we_unalias}
-};
-
 /**
-* we_cd - an inbuilt function for the cd command.
-* it handles changing the current directory.
+* we_cd - handles changing the current directory.
+* @args: arguments passed.
+* Return: 0 on success, otherwise error message.
 */
 
 int we_cd(char **args)
@@ -28,8 +19,9 @@ int we_cd(char **args)
 }
 
 /**
-* we_env - built in function for the env command.
-* it displays the environment variables.
+* we_env - displays the environment variables.
+* @args: arguments passed.
+* Return: 0 on success, otherwise error message.
 */
 
 int we_env(char **args)
@@ -56,8 +48,9 @@ int we_env(char **args)
 }
 
 /**
-* we_help - builtin function for the help command.
-* it offers help information about the shell.
+* we_help - offers help information about the shell.
+* @args: arguments passed.
+* Return: 0 on success, otherwise error message.
 */
 
 int we_help(char **args)
@@ -84,7 +77,9 @@ int we_help(char **args)
 }
 
 /**
-* we_echo - builtin function for echo command
+* we_echo - builtin function for echo command.
+* @args: arguments passed.
+* Return: 0 on success, otherwise error message.
 */
 int we_echo(char **args)
 {
@@ -99,15 +94,18 @@ int we_echo(char **args)
 }
 
 /**
-* we_exit - builtin function for exit command
-* exits the shell program.
+* we_exit - exits the shell program.
+* @args: arguments passed.
+* Return: 0 on success, otherwise error message.
 */
 
 int we_exit(char **args)
 {
 	if (args[1] != NULL)
 	{
-		int exit_code = atoi(args[1]);
+		int exit_code;
+
+		exit_code = atoi(args[1]);
 		exit(exit_code);
 	}
 

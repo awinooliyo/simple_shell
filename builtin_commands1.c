@@ -23,7 +23,7 @@ int we_alias(char **args)
 /**
 * we_unalias - removes an alias from an aliases linked list.
 * @args: arguments passed to the alias command.
-* Returns: 0 on success, otherwise error message.
+* Return: 0 on success, otherwise error message.
 */
 
 int we_unalias(char **args)

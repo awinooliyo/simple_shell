@@ -9,7 +9,7 @@
  * Return: no of characters read (excluding newline), or -1 on failure
  */
 
-ssize_t _getline(char **str, size_t *n)
+ssize_t _getline(char **str,ize_t *n)
 {
 static char buf[BUFFER_SIZE];
 staticize_t p = 0;
