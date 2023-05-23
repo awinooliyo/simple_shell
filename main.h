@@ -67,7 +67,7 @@ typedef struct {
 } info_t;
 
 /* Function Prototypes for Aliases */
-
+alias_t *node_starts_with(alias_t *alias, const char *name, char delimiter);
 int printAlias(alias_t *aliasNode);
 int alias(info_t *infoT);
 alias_t *makeAlias(const char *name, const char *value);
