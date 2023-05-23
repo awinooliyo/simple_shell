@@ -22,6 +22,11 @@ void _prompt(char **av, char **env);
 void free_argv(char **argv);
 void execute_commands(char **env, char *path_command, char **argv);
 
+/* EXECUTION */
+void child_process(char **av, char **env, char *path_command, char **argv);
+void parent_process(pid_t pid, int status, char **argv);
+
+
 /** Printing Strings **/
 void _puts(char **strg);
 
