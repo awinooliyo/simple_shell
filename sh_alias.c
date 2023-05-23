@@ -1,5 +1,28 @@
 #include "main.h"
 
+/**
+ * node_starts_with - find an alias node with a name that begins with given string.
+ * @alias: pointer to the head of the alias linked list.
+ * @name: string to search for as a prefix of alias names.
+ * @delimiter: delimiter character indicating the end of the prefix.
+ * Returm: pointer to the matching alias node, or NULL if not found.
+ */
+
+alias_t *node_starts_with(alias_t *alias, const char *name, char delimiter)
+{
+	alias_t *current = alias;
+
+	while (current != NULL)
+	{
+		if (strncmp(current->name, name, strlen(name)) == 0 && current->name[strlen(name)] == delimiter)
+			return (current);
+
+		current = current->next;
+	}
+
+	return (NULL);
+}
+
 
 /**
  * printAlias - print alias string.
@@ -27,7 +50,7 @@ int printAlias(alias_t *aliasNode)
 int alias(info_t *infoT)
 {
 	int i;
-	char *nameValue
+	char *nameValue;
 	alias_t *aliasNode;
 
 	if (infoT->argc == 1)
@@ -44,7 +67,7 @@ int alias(info_t *infoT)
 
 	for (i = 1; i < infoT->argc; i++)
 	{
-		nameValue = strchr(info->argv[i], '=');
+		nameValue = strchr(infoT->argv[i], '=');
 
 		if (nameValue)
 		{
@@ -52,13 +75,14 @@ int alias(info_t *infoT)
 		}
 		else
 		{
-			aliasNode = node_starts_with(infoT->alias, infoT->argv[i], '=');			
+			aliasNode = node_starts_with(infoT->alias, infoT->argv[i], '=');
 			if (aliasNode)
 			{
 				printAlias(aliasNode);
 			}
 		}
 	}
+
 	return (0);
 }
 
