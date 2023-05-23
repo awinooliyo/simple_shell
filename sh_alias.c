@@ -1,7 +1,8 @@
 #include "main.h"
 
 /**
- * node_starts_with - find an alias node with a name that begins with given string.
+ * node_starts_with - find an alias node with a name that begins
+ * with given string.
  * @alias: pointer to the head of the alias linked list.
  * @name: string to search for as a prefix of alias names.
  * @delimiter: delimiter character indicating the end of the prefix.
@@ -14,7 +15,8 @@ alias_t *node_starts_with(alias_t *alias, const char *name, char delimiter)
 
 	while (current != NULL)
 	{
-		if (strncmp(current->name, name, strlen(name)) == 0 && current->name[strlen(name)] == delimiter)
+		if (strncmp(current->name, name, strlen(name)) == 0 &&
+			current->name[strlen(name)] == delimiter)
 			return (current);
 
 		current = current->next;
