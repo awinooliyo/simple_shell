@@ -53,6 +53,32 @@ typedef struct environ_s
 	int change_env;
 } environ_t;
 
+/* ALIASES */
+
+/*Defining the alias data structure */
+typedef struct alias {
+	char *name;
+	char *value;
+	struct alias *next;
+} alias_t;
+
+
+/* Defining info_t data structure */
+
+typedef struct {
+	int argc;
+	char **argv;
+	alias_t *alias;
+} info_t;
+
+/* Function Prototypes for Aliases */
+alias_t *node_starts_with(alias_t *alias, const char *name, char delimiter);
+int printAlias(alias_t *aliasNode);
+int alias(info_t *infoT);
+alias_t *makeAlias(const char *name, const char *value);
+void freeAlias(alias_t *alias);
+
+
 int _unsetenv(environ_t *envs, char *var);
 int _setenv(environ_t *envs, char *var, char *val);
 list_t *add_node(list_t **head, const char *str, int change_env);
