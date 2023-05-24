@@ -31,6 +31,8 @@ void parent_process(pid_t pid, int status, char **argv);
 void _puts(char **strg);
 
 /** Built in Functions **/
+int main(int argc, char *argv[], char *envp[]);
+
 /* FUNCTION TO HANDLE PATH */
 
 char *get_env(char *name, char **env);
