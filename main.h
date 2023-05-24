@@ -2,7 +2,7 @@
 #define MAIN_H
 
 #define BUFFER_SIZE 1024
-
+#define TOKEN_BUFFSIZE 64
 
 #include <stdio.h>
 #include <unistd.h>
@@ -12,6 +12,9 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <limits.h>
+#include <fcntl.h>
+#include <errno.h>
+#include <sys/stat.h>
 
 /**  FUNCTIONS PROTOTYPES */
 
