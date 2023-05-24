@@ -24,7 +24,7 @@ int _builts(int argc, char *argv[])
 	if (chdir(dir) != 0)
 	{
 		fprintf(stderr, "Failed to change directory\n");
-		return 1;
+		return (1);
 	}
 
 	setenv("OLDPWD", getenv("PWD"), 1);
