@@ -51,6 +51,11 @@ typedef struct environ_s
 {
 	list_t *env;
 	int change_env;
+	int argc;
+	char **argv;
+	char **envp;
+	char **alias;
+	char **history;
 } environ_t;
 
 /* ALIASES */
@@ -77,6 +82,12 @@ int printAlias(alias_t *aliasNode);
 int alias(info_t *infoT);
 alias_t *makeAlias(const char *name, const char *value);
 void freeAlias(alias_t *alias);
+
+/* Alias */
+typedef struct node {
+    char *str;
+    struct node *next;
+} node_t;
 
 
 int _unsetenv(environ_t *envs, char *var);
